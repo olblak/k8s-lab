@@ -1,0 +1,22 @@
+repositories:
+  - name: epinio
+    url: https://epinio.github.io/helm-charts/
+
+helmDefaults:
+  createNamespace: true
+  timeout: 600 # It takes time to install Epinio via epinio-installer
+  # Atomic can't be used with the epinio-installer chart because if for some reason, one of the downstream 
+  # chart fail such as linkerd or traefik then it doesn't fully remove the other chart
+  #atomic: true
+  #wait: true
+  verify: false
+
+releases:
+  - name: epinio-installer
+    namespace: epinio
+    chart: epinio/epinio-installer
+    disableValidationOnInstall: true
+    wait: true
+    waitForJobs: true
+    values:
+      - skipLinkerd: false

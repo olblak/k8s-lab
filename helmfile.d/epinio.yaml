@@ -1,0 +1,57 @@
+repositories:
+#  - name: cert-manager 
+#    url: https://charts.jetstack.io
+#  - name: linkerd
+#    url: https://helm.linkerd.io/stable
+  - name: epinio
+    url: https://epinio.github.io/helm-charts/
+
+helmDefaults:
+  createNamespace: true
+  timeout: 180
+  atomic: true
+  verify: false
+  wait: true
+
+releases:
+
+  - name: cert-manager
+    namespace: cert-manager
+    chart: cert-manager/cert-manager
+    disableValidationOnInstall: true
+    wait: true
+    waitForJobs: true
+    values:
+      - installCRDs: true
+
+  - name: linkerd
+    namespace: linkerd
+    chart: linkerd/linkerd2
+    disableValidationOnInstall: true
+    wait: true
+    waitForJobs: true
+    values:
+      - installCRDS: true
+
+  - name: traefik
+    namespace: traefik
+    chart: traefik/traefik
+    wait: true
+    waitForJobs: true
+    disableValidationOnInstall: true
+    # version: 10.3.4
+#
+#  - name: tekton
+#
+#  - name: epinio
+#    
+#  - name: epinio-registry
+# 
+#  - name: minio
+#
+  - name: epinio
+    namespace: epinio
+    chart: epinio/epinio
+    disableValidationOnInstall: true
+    wait: true
+    waitForJobs: true
