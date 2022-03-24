@@ -1,18 +1,21 @@
 repositories:
-  - name: epinio
-    url: https://epinio.github.io/helm-charts/
+  - name: linkerd
+    url: https://helm.linkerd.io/stable
 
 helmDefaults:
   createNamespace: true
-  timeout: 180
+  timeout: 180 
   atomic: true
   verify: false
   wait: true
 
 releases:
-  - name: epinio
-    namespace: epinio
-    chart: epinio/epinio
+  - name: linkerd
+    namespace: linkerd
+    chart: linkerd/linkerd2
     disableValidationOnInstall: true
     wait: true
     waitForJobs: true
+    values:
+      - installCRDS: true
+

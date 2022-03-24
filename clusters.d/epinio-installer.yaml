@@ -1,2 +1,4 @@
 helmfiles:
+  - ../helmfile.d/cert-manager.yaml
+  - ../helmfile.d/traefik.yaml
   - ../helmfile.d/epinio-installer.yaml
