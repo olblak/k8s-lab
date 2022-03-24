@@ -1,0 +1,44 @@
+repositories:
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
+  - name: open-telemetry
+    url: https://open-telemetry.github.io/opentelemetry-helm-charts
+
+helmDefaults:
+  createNamespace: true
+  timeout: 180
+  atomic: true
+  verify: false
+  wait: true
+
+releases:
+  - name: opentelemetry-operator-system
+    namespace: opentelemetry-operator-system
+    chart: open-telemetry/opentelemetry-operator
+    disableValidationOnInstall: true
+    wait: true
+
+  # Default login/password "admin"/"prom-operator"
+  # https://grafana.com/grafana/dashboards/15314
+
+  - name: prometheus
+    namespace: prometheus
+    chart: prometheus-community/kube-prometheus-stack
+    disableValidationOnInstall: true
+    wait: true
+    needs:
+     - opentelemetry-operator-system/opentelemetry-operator-system
+    values:
+      - prometheus:
+          additionalServiceMonitors:
+            - name: kubewarden
+              selector:
+                matchLabels:
+                  app: kubewarden-policy-server-default
+              namespaceSelector:
+                matchNames:
+                  - kubewarden
+              endpoints:
+                - port: metrics
+                  interval: 10s
+

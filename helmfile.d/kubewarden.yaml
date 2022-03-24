@@ -1,0 +1,39 @@
+# helm repo add kubewarden https://charts.kubewarden.io
+# kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.5.3/cert-manager.yaml
+# kubectl wait --for=condition=Available deployment --timeout=2m -n cert-manager --all
+# helm install --wait -n kubewarden --create-namespace kubewarden-crds kubewarden/kubewarden-crds
+# helm install --wait -n kubewarden kubewarden-controller kubewarden/kubewarden-controller
+
+repositories:
+  - name: kubewarden
+    url: https://charts.kubewarden.io
+
+helmDefaults:
+  createNamespace: true
+  timeout: 180
+  atomic: true
+  verify: false
+  wait: true
+
+releases:
+  - name: kubewarden-crds
+    namespace: kubewarden
+    chart: kubewarden/kubewarden-crds
+    wait: true
+    waitForJobs: true
+    disableValidationOnInstall: true
+
+  - name: kubewarden-controller
+    namespace: kubewarden
+    chart: kubewarden/kubewarden-controller
+    wait: true
+    waitForJobs: true
+    disableValidationOnInstall: true
+    needs:
+      - kubewarden/kubewarden-crds
+    values:
+      - telemetry:
+          enabled: true
+        policyServer:
+          metrics: 
+            port: 8080

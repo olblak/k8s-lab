@@ -34,3 +34,7 @@ install: k3d_init install_epinio ## Fully installer the Epinio lab
 	
 .PHONY: reset
 reset: delete install ## Ensure that all component are remove before reinstalling them
+
+.PHONY: kubewarden
+kubewarden:
+	helmfile -f clusters.d/kubewarden.yaml apply
