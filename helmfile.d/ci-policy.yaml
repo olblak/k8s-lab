@@ -1,0 +1,16 @@
+---
+helmDefaults:
+  createNamespace: true
+  timeout: 180
+  atomic: true
+  verify: false
+  wait: true
+
+releases:
+  - name: ci-policy
+    namespace: kubewarden
+    chart: ../charts/ci-policy
+    disableValidationOnInstall: true
+    wait: true
+    waitForJobs: true
+
