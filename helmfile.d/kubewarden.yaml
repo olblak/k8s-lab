@@ -37,3 +37,18 @@ releases:
         policyServer:
           metrics: 
             port: 8080
+
+  - name: kubewarden-defaults
+    namespace: kubewarden
+    chart: kubewarden/kubewarden-defaults
+    wait: true
+    waitForJobs: true
+    disableValidationOnInstall: true
+    needs:
+      - kubewarden/kubewarden-crds
+    values:
+      recommendedPolicies:
+        enabled: true
+        skipNamespaces:
+          - kube-system
+        defaultPoliciesMode: protect
