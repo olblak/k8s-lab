@@ -1,6 +1,6 @@
 ## This Makefile describe common operation for testing Epinio.
 
-KD3_CLUSTER_NAME=epinio-lab
+KD3_CLUSTER_NAME=k8s-lab
 
 .PHONY: help
 help: ## Show this Makefile's help
