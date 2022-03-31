@@ -47,8 +47,8 @@ releases:
     needs:
       - kubewarden/kubewarden-crds
     values:
-      recommendedPolicies:
-        enabled: true
-        skipNamespaces:
-          - kube-system
-        defaultPoliciesMode: protect
+      - recommendedPolicies:
+          enabled: true
+          skipNamespaces:
+            - kube-system
+          defaultPoliciesMode: protect
