@@ -24,6 +24,3 @@ releases:
       - hostname: rancher.local.olbalk.com
       - bootstrapPassword: admin
 
-  #    # current password H4LBmzEzWih4tiN1
-
-
