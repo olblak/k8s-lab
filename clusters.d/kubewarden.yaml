@@ -1,5 +1,6 @@
 helmfiles:
   - ../helmfile.d/cert-manager.yaml
   - ../helmfile.d/metrics.yaml
+  - ../helmfile.d/loki.yaml
   - ../helmfile.d/kubewarden.yaml
   - ../helmfile.d/ci-policy.yaml
