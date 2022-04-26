@@ -1,0 +1,24 @@
+repositories:
+  # Deprecated
+  - name: loki
+    url: https://grafana.github.io/loki/charts
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+
+helmDefaults:
+  createNamespace: true
+  timeout: 180 
+  atomic: true
+  verify: false
+  wait: true
+releases:
+  - name: promtail
+    namespace: loki
+    chart: grafana/promtail
+    values:
+      - loki:
+          serviceName: loki
+  - name: loki
+    namespace: loki
+    chart: grafana/loki
+
