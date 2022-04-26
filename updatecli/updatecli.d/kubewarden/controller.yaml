@@ -8,6 +8,7 @@ scms:
       repository: k8s-lab
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      branch: main
 
 sources:
   kubewarden-controller:
