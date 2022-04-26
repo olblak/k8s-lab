@@ -19,6 +19,7 @@ releases:
     wait: true
 
   # Default login/password "admin"/"prom-operator"
+  # kubectl port-forward -n prometheus --address 0.0.0.0 svc/prometheus-grafana 8080:80
   # https://grafana.com/grafana/dashboards/15314
 
   - name: prometheus
