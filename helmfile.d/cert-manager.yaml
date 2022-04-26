@@ -1,18 +1,16 @@
 repositories:
   - name: cert-manager
     url: https://charts.jetstack.io
-
 helmDefaults:
   createNamespace: true
-  timeout: 180 
+  timeout: 180
   atomic: true
   verify: false
   wait: true
-
 releases:
   - name: cert-manager
     namespace: cert-manager
-    version: 1.8.0
+    version: v1.8.0
     chart: cert-manager/cert-manager
     disableValidationOnInstall: true
     wait: true
