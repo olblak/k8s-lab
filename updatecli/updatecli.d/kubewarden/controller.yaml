@@ -1,0 +1,49 @@
+title: "Update Kubewarden"
+
+scms:
+  default: 
+    kind: github
+    spec:
+      owner: olblak
+      repository: k8s-lab
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+
+sources:
+  kubewarden-controller:
+    name: "Get Kubewarden helm chart version"
+    kind: helmchart
+    spec:
+      url: https://charts.kubewarden.io
+      name: kubewarden-controller
+
+conditions:
+  kubewarden-controller:
+    name: "Ensure kubewarden-controller is used"
+    kind: yaml
+    disablesourceinput: true
+    spec:
+      file: "helmfile.d/kubewarden.yaml"
+      key: releases[1].name
+      value: kubewarden-controller
+
+targets:
+  kubewarden-controller:
+    name: "Bump Kubewarden controller"
+    kind: yaml
+    sourceid: kubewarden-controller
+    spec:
+      file: "helmfile.d/kubewarden.yaml"
+      key: releases[1].version
+
+pullrequests:
+  default: 
+    kind: github
+    scmid: default
+    targets:
+      - kubewarden-controller  
+    spec:
+      automerge: false
+      labels:
+        - "dependencies"
+      title: Bump helm chart kubewarden/controller to {{ source "kubewarden-controller" }}

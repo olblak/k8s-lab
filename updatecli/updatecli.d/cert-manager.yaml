@@ -1,0 +1,50 @@
+title: "Bump certmanager"
+
+scms:
+  default: 
+    kind: github
+    spec:
+      owner: olblak
+      repository: k8s-lab
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      branch: main
+
+sources:
+  certmanager:
+    name: "Get certmanager helm chart version"
+    kind: helmchart
+    spec:
+      url: https://charts.jetstack.io
+      name: cert-manager
+    
+conditions:
+  certmanager: 
+    name: "Ensure certmanager is used"  
+    scmid: default
+    kind: yaml
+    disablesourceinput: true
+    spec:
+      file: helmfile.d/cert-manager.yaml
+      key: releases[0].name
+      value: "cert-manager"
+
+targets:
+  certmanager: 
+    name: "Bump certmanager Helm chart version"
+    scmid: default
+    kind: yaml
+    spec:
+      file: helmfile.d/cert-manager.yaml
+      key: releases[0].version
+
+pullrequests:
+  default: 
+    scmid: default
+    kind: github
+    targets:
+      - "certmanager"
+    spec:
+      title: 'Bump certmanager Helm chart to {{ source "certmanager" }}'
+      labels:
+        - "dependencies"
