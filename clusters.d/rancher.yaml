@@ -1,0 +1,4 @@
+helmfiles:
+  - ../helmfile.d/cert-manager.yaml
+  - ../helmflie.d/traefik.yaml
+  - ../helmfile.d/rancher.yaml

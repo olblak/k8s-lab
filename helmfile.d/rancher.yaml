@@ -4,10 +4,6 @@
 # helmfile --file rancher.yaml sync
 
 repositories:
-  - name: cert-manager
-    url: https://charts.jetstack.io
-  - name: traefik
-    url: https://helm.traefik.io/traefik
   - name: rancher
     url: https://releases.rancher.com/server-charts/latest
 helmDefaults:
@@ -18,22 +14,6 @@ helmDefaults:
   wait: true
 
 releases:
-  - name: cert-manager
-    namespace: cert-manager
-    chart: cert-manager/cert-manager
-    disableValidationOnInstall: true
-    wait: true
-    waitForJobs: true
-    values:
-      - installCRDs: true
-    # version: 1.6.1
-  - name: traefik
-    namespace: traefik
-    chart: traefik/traefik
-    wait: true
-    waitForJobs: true
-    disableValidationOnInstall: true
-    # version: 10.3.4
   - name: rancher
     namespace: cattle-system
     chart: rancher/rancher
