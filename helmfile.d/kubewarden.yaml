@@ -22,6 +22,7 @@ releases:
     wait: true
     waitForJobs: true
     disableValidationOnInstall: true
+    version: xxx
 
   - name: kubewarden-controller
     namespace: kubewarden
@@ -37,6 +38,7 @@ releases:
         policyServer:
           metrics: 
             port: 8080
+    version: 0.4.3
 
   - name: kubewarden-defaults
     namespace: kubewarden
@@ -52,3 +54,4 @@ releases:
           skipNamespaces:
             - kube-system
           defaultPoliciesMode: protect
+    version: 0.1.1
