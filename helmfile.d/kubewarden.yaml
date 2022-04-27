@@ -7,14 +7,12 @@
 repositories:
   - name: kubewarden
     url: https://charts.kubewarden.io
-
 helmDefaults:
   createNamespace: true
   timeout: 180
   atomic: true
   verify: false
   wait: true
-
 releases:
   - name: kubewarden-crds
     namespace: kubewarden
@@ -22,8 +20,7 @@ releases:
     wait: true
     waitForJobs: true
     disableValidationOnInstall: true
-    version: xxx
-
+    version: 0.1.4
   - name: kubewarden-controller
     namespace: kubewarden
     chart: kubewarden/kubewarden-controller
@@ -36,10 +33,9 @@ releases:
       - telemetry:
           enabled: true
         policyServer:
-          metrics: 
+          metrics:
             port: 8080
     version: 0.4.3
-
   - name: kubewarden-defaults
     namespace: kubewarden
     chart: kubewarden/kubewarden-defaults
