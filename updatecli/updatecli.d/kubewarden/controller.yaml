@@ -9,6 +9,8 @@ scms:
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       branch: main
+      user: olblakbot
+      email: bot@olblak.com
 
 sources:
   kubewarden-controller:
@@ -23,6 +25,7 @@ conditions:
     name: "Ensure kubewarden-controller is used"
     kind: yaml
     disablesourceinput: true
+    scmid: default
     spec:
       file: "helmfile.d/kubewarden.yaml"
       key: releases[1].name
@@ -32,6 +35,7 @@ targets:
   kubewarden-controller:
     name: "Bump Kubewarden controller"
     kind: yaml
+    scmid: default
     sourceid: kubewarden-controller
     spec:
       file: "helmfile.d/kubewarden.yaml"
@@ -39,6 +43,7 @@ targets:
 
 pullrequests:
   default: 
+    title: Bump helm chart kubewarden/controller to {{ source "kubewarden-controller" }}
     kind: github
     scmid: default
     targets:
@@ -47,4 +52,3 @@ pullrequests:
       automerge: false
       labels:
         - "dependencies"
-      title: Bump helm chart kubewarden/controller to {{ source "kubewarden-controller" }}

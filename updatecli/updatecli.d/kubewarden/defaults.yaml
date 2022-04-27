@@ -9,6 +9,8 @@ scms:
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       branch: main
+      user: olblakbot
+      email: bot@olblak.com
 
 sources:
   kubewarden-defaults:
@@ -23,6 +25,7 @@ conditions:
     name: "Ensure kubewarden-defaults is used"
     kind: yaml
     disablesourceinput: true
+    scmid: default
     spec:
       file: "helmfile.d/kubewarden.yaml"
       key: releases[2].name
@@ -33,12 +36,14 @@ targets:
     name: "Bump Kubewarden defaults"
     kind: yaml
     sourceid: kubewarden-defaults
+    scmid: default
     spec:
       file: "helmfile.d/kubewarden.yaml"
       key: releases[2].version
 
 pullrequests:
   default: 
+    title: Bump Helm chart kubewarden/defaults to {{ source "kubewarden-defaults" }}
     kind: github
     scmid: default
     targets:
@@ -47,4 +52,3 @@ pullrequests:
       automerge: false
       labels:
         - "dependencies"
-      title: Bump Helm chart kubewarden/defaults to {{ source "kubewarden-defaults" }}

@@ -9,6 +9,8 @@ scms:
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       branch: main
+      user: olblakbot
+      email: bot@olblak.com
 
 sources:
   kubewarden-crds:
@@ -22,6 +24,7 @@ conditions:
   kubewarden-crds:
     name: "Ensure kubewarden-crds is used"
     kind: yaml
+    scmid: default
     disablesourceinput: true
     spec:
       file: "helmfile.d/kubewarden.yaml"
@@ -32,6 +35,7 @@ targets:
   kubewarden-crds:
     name: "Bump Kubewarden crds"
     kind: yaml
+    scmid: default
     sourceid: kubewarden-crds
     spec:
       file: "helmfile.d/kubewarden.yaml"
@@ -41,10 +45,10 @@ pullrequests:
   default: 
     kind: github
     scmid: default
+    title: Bump Helm chart kubewarden/crds to {{ source "kubewarden-crds" }}
     targets:
       - kubewarden-crds
     spec:
       automerge: false
       labels:
         - "dependencies"
-      title: Bump Helm chart kubewarden/crds to {{ source "kubewarden-crds" }}

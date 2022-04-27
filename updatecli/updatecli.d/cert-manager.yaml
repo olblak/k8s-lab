@@ -9,6 +9,8 @@ scms:
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       branch: main
+      user: olblakbot
+      email: bot@olblak.com
 
 sources:
   certmanager:
@@ -33,6 +35,7 @@ targets:
   certmanager: 
     name: "Bump certmanager Helm chart version"
     scmid: default
+    sourceid: certmanager
     kind: yaml
     spec:
       file: helmfile.d/cert-manager.yaml
@@ -40,11 +43,11 @@ targets:
 
 pullrequests:
   default: 
+    title: 'Bump certmanager Helm chart to {{ source "certmanager" }}'
     scmid: default
     kind: github
     targets:
       - "certmanager"
     spec:
-      title: 'Bump certmanager Helm chart to {{ source "certmanager" }}'
       labels:
         - "dependencies"
