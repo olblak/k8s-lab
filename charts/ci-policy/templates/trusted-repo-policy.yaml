@@ -2,7 +2,7 @@
 # https://github.com/kubewarden/trusted-repos-policy
 #
 apiVersion: policies.kubewarden.io/v1alpha2
-kind: ClusterAdmissionPolicy
+kind: AdmissionPolicy
 metadata:
   name: trusted-repos-policy
 spec:
@@ -16,9 +16,6 @@ spec:
     - UPDATE
   mutating: false
   settings:
-    registries:
-      allow:
-        - quay.io
     tags:
       reject:
         - latest
