@@ -1,0 +1,2 @@
+helmfiles:
+  - ../helmfile.d/jenkins.yaml

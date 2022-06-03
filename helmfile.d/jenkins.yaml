@@ -1,0 +1,18 @@
+--- 
+repositories:
+  - name: jenkins
+    url: https://charts.jenkins.io
+
+helmDefaults:
+  createNamespace: true
+  timeout: 360
+  atomic: true
+  verify: false
+  wait: true
+
+releases:
+  - name: jenkins
+    chart: jenkins/jenkins
+    namespace: jenkins
+    values:
+      - ../config/jenkins.yaml

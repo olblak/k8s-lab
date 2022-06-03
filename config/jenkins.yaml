@@ -1,0 +1,50 @@
+controller:
+  image: jenkinsciinfra/jenkins-weekly
+  tag: 0.59.6-2.349
+  pullPolicy: IfNotPresent
+  overwritePlugins: true
+  ingress:
+    enabled: true
+    paths: []
+    apiVersion: "extensions/v1beta1"
+    hostName: jenkins.olblak.local
+  sidecars:
+    configAutoReload:
+      enabled: true 
+  JCasC:
+    enabled: true
+    defaultConfig: false
+    installPlugins: false
+    configScripts:
+     agent-settings: |-
+       jenkins:
+         numExecutors: 0
+         clouds:
+           - kubernetes:
+               containerCap: 10
+               containerCapStr: "10"
+               jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:8080"
+               name: "kubernetes"
+               webSocket: true
+      welcome-message: |
+        jenkins:
+          systemMessage: Welcome to our CI\CD server.
+     #     numExecutors: 0
+     #     clouds:
+     #       - kubernetes:
+     #           containerCap: 10
+     #           containerCapStr: "10"
+     #           jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:8080"
+     #           name: "kubernetes"
+     #           webSocket: true
+    securityRealm: |-
+      local:
+        allowsSignup: false
+        enableCaptcha: false
+        users:
+        - id: "${chart-admin-username}"
+          name: "Jenkins Admin"
+          password: "${chart-admin-password}"
+    authorizationStrategy: |-
+      loggedInUsersCanDoAnything:
+        allowAnonymousRead: false
