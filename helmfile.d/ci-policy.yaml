@@ -8,7 +8,7 @@ helmDefaults:
 
 releases:
   - name: ci-policy
-    namespace: kubewarden
+    namespace: jenkins
     chart: ../charts/ci-policy
     disableValidationOnInstall: true
     wait: true
