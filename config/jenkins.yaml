@@ -26,17 +26,9 @@ controller:
                jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:8080"
                name: "kubernetes"
                webSocket: true
-      welcome-message: |
-        jenkins:
-          systemMessage: Welcome to our CI\CD server.
-     #     numExecutors: 0
-     #     clouds:
-     #       - kubernetes:
-     #           containerCap: 10
-     #           containerCapStr: "10"
-     #           jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:8080"
-     #           name: "kubernetes"
-     #           webSocket: true
+     welcome-message: |
+       jenkins:
+         systemMessage: Welcome to our CI\CD server.
     securityRealm: |-
       local:
         allowsSignup: false
