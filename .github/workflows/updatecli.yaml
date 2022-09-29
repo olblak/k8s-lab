@@ -21,7 +21,7 @@ jobs:
         uses: updatecli/updatecli-action@v1.31.0
         with:
           command: diff
-          flags: "--config ./updatecli/updatecli.d"
+          flags: "--config ./updatecli/updatecli.d --experimental"
         env:
           UPDATECLI_GITHUB_ACTOR: ${{ github.actor }}
           UPDATECLI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -31,7 +31,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           command: apply
-          flags: "--config ./updatecli/updatecli.d"
+          flags: "--config ./updatecli/updatecli.d --experimental"
         env:
           UPDATECLI_GITHUB_ACTOR: ${{ github.actor }}
           UPDATECLI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

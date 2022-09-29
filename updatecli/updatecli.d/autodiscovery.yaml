@@ -1,0 +1,33 @@
+title: Autodiscovery
+
+autodiscovery:
+  groupby: individual
+  scmid: default
+  pullrequestid: default
+  crawlers:
+    helm:
+    rancher/fleet:
+    helmfile:
+      rootdir: helmfile.d
+      
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: updatecli
+      email: me@olblak.com
+      owner: olblak
+      repository: k8s-lab
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      branch: main
+
+pullrequests:
+  default:
+    kind: github
+    scmid: default
+    spec:
+      labels:
+        - dependencies
+
