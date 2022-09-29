@@ -1,37 +1,32 @@
----
-name: updatecli
 
+name: updatecli
 on:
   workflow_dispatch:
   push:
   pull_request:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    # Run on Sunday
-    - cron: '0 0 * * 0'
-
+    # Run every hour
+    - cron: '0 * * * *'
 jobs:
   updatecli:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
 
-      - name: Diff
-        uses: updatecli/updatecli-action@v2.9.0
-        with:
-          command: diff
-          flags: "--config ./updatecli/updatecli.d --experimental"
+      - name: "Setup updatecli"
+        uses: "updatecli/updatecli-action@v2"
+
+      - name: "Run updatecli in dryrun"
+        run: "updatecli diff --config ./updatecli/updatecli.d  --experimental"
         env:
           UPDATECLI_GITHUB_ACTOR: ${{ github.actor }}
           UPDATECLI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Apply
-        uses: updatecli/updatecli-action@v1.31.0
+      - name: "Run updatecli"
         if: github.ref == 'refs/heads/main'
-        with:
-          command: apply
-          flags: "--config ./updatecli/updatecli.d --experimental"
+        run: "updatecli apply --config ./updatecli/updatecli.d --experimental" 
         env:
           UPDATECLI_GITHUB_ACTOR: ${{ github.actor }}
           UPDATECLI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
