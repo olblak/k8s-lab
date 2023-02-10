@@ -5,49 +5,49 @@
 # helm install --wait -n kubewarden kubewarden-controller kubewarden/kubewarden-controller
 
 repositories:
-  - name: kubewarden
-    url: https://charts.kubewarden.io
+    - name: kubewarden
+      url: https://charts.kubewarden.io
 helmDefaults:
-  createNamespace: true
-  timeout: 180
-  atomic: true
-  verify: false
-  wait: true
+    createNamespace: true
+    timeout: 180
+    atomic: true
+    verify: false
+    wait: true
 releases:
-  - name: kubewarden-crds
-    namespace: kubewarden
-    chart: kubewarden/kubewarden-crds
-    wait: true
-    waitForJobs: true
-    disableValidationOnInstall: true
-    version: 1.2.1
-  - name: kubewarden-controller
-    namespace: kubewarden
-    chart: kubewarden/kubewarden-controller
-    wait: true
-    waitForJobs: true
-    disableValidationOnInstall: true
-    needs:
-      - kubewarden/kubewarden-crds
-    values:
-      - telemetry:
-          enabled: true
-        policyServer:
-          metrics:
-            port: 8080
-    version: 1.2.1
-  - name: kubewarden-defaults
-    namespace: kubewarden
-    chart: kubewarden/kubewarden-defaults
-    wait: true
-    waitForJobs: true
-    disableValidationOnInstall: true
-    needs:
-      - kubewarden/kubewarden-crds
-    values:
-      - recommendedPolicies:
-          enabled: true
-          skipNamespaces:
-            - kube-system
-          defaultPoliciesMode: protect
-    version: 1.5.3
+    - name: kubewarden-crds
+      namespace: kubewarden
+      chart: kubewarden/kubewarden-crds
+      wait: true
+      waitForJobs: true
+      disableValidationOnInstall: true
+      version: 1.2.1
+    - name: kubewarden-controller
+      namespace: kubewarden
+      chart: kubewarden/kubewarden-controller
+      wait: true
+      waitForJobs: true
+      disableValidationOnInstall: true
+      needs:
+        - kubewarden/kubewarden-crds
+      values:
+        - telemetry:
+            enabled: true
+          policyServer:
+            metrics:
+                port: 8080
+      version: 1.2.1
+    - name: kubewarden-defaults
+      namespace: kubewarden
+      chart: kubewarden/kubewarden-defaults
+      wait: true
+      waitForJobs: true
+      disableValidationOnInstall: true
+      needs:
+        - kubewarden/kubewarden-crds
+      values:
+        - recommendedPolicies:
+            enabled: true
+            skipNamespaces:
+                - kube-system
+            defaultPoliciesMode: protect
+      version: 1.5.4
