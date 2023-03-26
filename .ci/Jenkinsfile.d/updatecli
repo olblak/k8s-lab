@@ -10,15 +10,16 @@ pipeline {
     UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
   }
 
-  when {
-    branch "main"
-  }
 
   triggers {
     cron 'H/30 * * * *'
   }
 
   stages {
+    when {
+      branch "main"
+    }
+
     stage('Check Configuration Update') {
       steps {
         container('updatecli') {
