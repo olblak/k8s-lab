@@ -16,18 +16,11 @@ pipeline {
   }
 
   stages {
-    when {
-      branch "main"
-    }
-
-    stage('Check Configuration Update') {
-      steps {
-        container('updatecli') {
-          sh 'updatecli diff --config ./updatecli/updatecli.d --values ./updatecli/values.yaml --experimental'
-        }
+    stage('Run Updatecli') {
+      when {
+        branch "main"
       }
-    }
-    stage('Apply Configuration Update') {
+
       steps {
         container('updatecli') {
           sh 'updatecli apply --config ./updatecli/updatecli.d --values ./updatecli/values.yaml --experimental'
