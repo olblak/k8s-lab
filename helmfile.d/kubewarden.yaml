@@ -34,7 +34,7 @@ releases:
         policyServer:
           metrics:
             port: 8080
-    version: 1.5.3
+    version: 1.6.0
   - name: kubewarden-defaults
     namespace: kubewarden
     chart: kubewarden/kubewarden-defaults
