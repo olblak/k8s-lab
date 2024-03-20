@@ -49,4 +49,4 @@ releases:
           skipNamespaces:
             - kube-system
           defaultPoliciesMode: protect
-    version: 1.9.3
+    version: 1.9.4
