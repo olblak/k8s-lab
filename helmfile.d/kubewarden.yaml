@@ -3,7 +3,6 @@
 # kubectl wait --for=condition=Available deployment --timeout=2m -n cert-manager --all
 # helm install --wait -n kubewarden --create-namespace kubewarden-crds kubewarden/kubewarden-crds
 # helm install --wait -n kubewarden kubewarden-controller kubewarden/kubewarden-controller
-
 repositories:
   - name: kubewarden
     url: https://charts.kubewarden.io
@@ -50,4 +49,4 @@ releases:
           skipNamespaces:
             - kube-system
           defaultPoliciesMode: protect
-    version: 1.5.4
+    version: 1.9.4
