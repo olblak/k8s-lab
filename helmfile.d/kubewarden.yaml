@@ -19,7 +19,7 @@ releases:
     wait: true
     waitForJobs: true
     disableValidationOnInstall: true
-    version: 1.5.0
+    version: 1.5.1
   - name: kubewarden-controller
     namespace: kubewarden
     chart: kubewarden/kubewarden-controller
